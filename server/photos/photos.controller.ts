@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Headers,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PhotosService } from './photos.service';
-import { CreatePhotoDto } from './dto/create-photo.dto';
-import { UpdatePhotoDto } from './dto/update-photo.dto';
 
 @Controller('photos')
 export class PhotosController {
   constructor(private readonly photosService: PhotosService) {}
 
-  @Post()
-  create(@Body() createPhotoDto: CreatePhotoDto) {
-    return this.photosService.create(createPhotoDto);
-  }
-
   @Get()
-  findAll() {
-    return this.photosService.findAll();
+  listAlbums(@Headers('authorization') bearerToken: string) {
+    if (bearerToken === undefined) {
+      throw new UnauthorizedException();
+    }
+
+    return this.photosService.listAlbums(bearerToken);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.photosService.findOne(+id);
-  }
+  @Get(':albumId')
+  getAlbum(
+    @Headers('authorization') bearerToken: string,
+    @Param('albumId') albumId: string
+  ) {
+    if (bearerToken === undefined) {
+      throw new UnauthorizedException();
+    }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePhotoDto: UpdatePhotoDto) {
-    return this.photosService.update(+id, updatePhotoDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.photosService.remove(+id);
+    return this.photosService.getAlbum(bearerToken, albumId);
   }
 }

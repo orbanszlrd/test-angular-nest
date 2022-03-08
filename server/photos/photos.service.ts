@@ -1,26 +1,40 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { CreatePhotoDto } from './dto/create-photo.dto';
-import { UpdatePhotoDto } from './dto/update-photo.dto';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class PhotosService {
-  create(createPhotoDto: CreatePhotoDto) {
-    return 'This action adds a new photo';
+  constructor(private httpService: HttpService) {}
+
+  async listAlbums(bearerToken: string) {
+    const result = await lastValueFrom(
+      this.httpService.get('https://photoslibrary.googleapis.com/v1/albums', {
+        params: {
+          pageSize: 50,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: bearerToken,
+        },
+      })
+    );
+
+    return result.data;
   }
 
-  findAll() {
-    return `This action returns all photos`;
-  }
+  async getAlbum(bearerToken: string, albumId: string) {
+    const result = await lastValueFrom(
+      this.httpService.get(
+        `https://photoslibrary.googleapis.com/v1/albums/${albumId}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: bearerToken,
+          },
+        }
+      )
+    );
 
-  findOne(id: number) {
-    return `This action returns a #${id} photo`;
-  }
-
-  update(id: number, updatePhotoDto: UpdatePhotoDto) {
-    return `This action updates a #${id} photo`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} photo`;
+    return result.data;
   }
 }
