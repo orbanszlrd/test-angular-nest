@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "all": "ng build && node dist/test-angular-nest/server/main.js",
     "dev:ssr": "ng run test-angular-nest:serve-ssr",
     "serve:ssr": "node dist/test-angular-nest/server/main.js",
     "build:ssr": "ng build && ng run test-angular-nest:server",
