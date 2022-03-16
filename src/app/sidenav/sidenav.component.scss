@@ -8,6 +8,15 @@
   right: 0;
 }
 
+.app-toolbar {
+  color: white;
+  background-color: black;
+}
+
+.app-toolbar a {
+  color: white;
+}
+
 .app-is-mobile .app-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
