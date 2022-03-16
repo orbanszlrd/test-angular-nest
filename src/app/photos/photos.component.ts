@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GoogleMediaItems } from '../google-media-items';
+import { GooglePhotosService } from '../google-photos.service';
 
 @Component({
   selector: 'app-photos',
@@ -8,11 +11,17 @@ import { Component, OnInit } from '@angular/core';
 export class PhotosComponent implements OnInit {
   nameFilter: string = '';
 
-  constructor() {}
+  mediaItems: GoogleMediaItems | any = [];
+
+  constructor(private readonly photoService: GooglePhotosService) {}
 
   filter() {
     console.log(this.nameFilter);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.photoService.listMediaItems().subscribe((data) => {
+      this.mediaItems = data.mediaItems;
+    });
+  }
 }

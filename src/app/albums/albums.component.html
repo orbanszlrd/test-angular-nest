@@ -1,1 +1,5 @@
 <h1>Albums</h1>
+
+<div *ngFor="let album of albums">
+    <img [src]="album.coverPhotoBaseUrl" [alt]="album.title" [title]="album.title">
+</div>

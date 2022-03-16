@@ -3,3 +3,7 @@
 <label for="nameFilter">Search by name:</label>
 <input id="nameFilter" type="search" [(ngModel)]="nameFilter">
 <button (click)="filter()">Search</button>
+
+<div *ngFor="let photo of mediaItems">
+    <img [src]="photo.baseUrl" [alt]="photo.filename">
+</div>

@@ -17,6 +17,7 @@ import { PhotosComponent } from './photos/photos.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { AlbumComponent } from './album/album.component';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,

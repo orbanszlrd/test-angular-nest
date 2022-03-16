@@ -1,12 +1,16 @@
-<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="example-toolbar">
+<div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="app-toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 class="example-app-name">Photo App</h1>
+    <h1 class="app-app-name">Photo App</h1>
+    <span class="app-spacer"></span>
+    <a mat-list-item [href]="'/api/auth/google/login'" style="color:white;">
+      <mat-icon aria-hidden="false" aria-label="login">login</mat-icon>
+    </a>
   </mat-toolbar>
 
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56">
       <mat-nav-list>
