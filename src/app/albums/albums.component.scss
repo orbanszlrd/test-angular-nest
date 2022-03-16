@@ -1,0 +1,87 @@
+.o-filter-container {
+  margin: 1rem;
+}
+
+.o-card-container .o-cover {
+  position: relative;
+  margin: auto;
+  padding-bottom: 100%;
+  border-radius: 0.5rem;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 1;
+  transition: all 0.2s linear;
+}
+
+.o-card-container .o-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  padding: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  text-decoration: none;
+  color: white;
+  font-weight: normal;
+  background-color: rgba(0, 0, 0, 0.4);
+  background-image: linear-gradient(to bottom, transparent, black);
+  opacity: 0.8;
+  transition: all 0.2s linear;
+}
+
+.o-card-container .o-date {
+  padding-top: 0.5rem;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.o-card-container .o-counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  margin: 0;
+  padding: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  transition: all 0.2s linear;
+}
+
+.o-card-container .o-list:hover .o-cover {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.o-card-container .o-list:hover .o-cover .o-title {
+  opacity: 1;
+}
+
+.o-card-container .o-list:hover .o-cover .o-counter {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .o-card-container .o-title {
+    opacity: 0.8;
+    transition: none;
+  }
+
+  .o-card-container .o-date {
+    opacity: 0.8;
+    transition: none;
+  }
+
+  .o-card-container .o-counter {
+    opacity: 0.8;
+    transition: none;
+  }
+}

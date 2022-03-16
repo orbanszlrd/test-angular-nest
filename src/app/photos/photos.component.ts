@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { GoogleMediaItems } from '../google-media-items';
 import { GooglePhotosService } from '../google-photos.service';
 
