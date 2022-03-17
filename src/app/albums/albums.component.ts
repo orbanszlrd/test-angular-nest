@@ -9,6 +9,7 @@ import { GooglePhotosService } from '../google-photos.service';
 })
 export class AlbumsComponent implements OnInit {
   constructor(private readonly photoService: GooglePhotosService) {}
+  isLoading = true;
 
   albums: GooglePhotoAlbums | any = [];
   items: GooglePhotoAlbums | any = [];
@@ -19,6 +20,7 @@ export class AlbumsComponent implements OnInit {
     this.photoService.listAlbums().subscribe((data) => {
       this.albums = data.albums;
       this.items = data.albums;
+      this.isLoading = false;
     });
   }
 

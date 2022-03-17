@@ -1,23 +1,30 @@
-<div class="o-albums-container">
-    <div class="o-filter-container">
-        <div class="o-filter-div">
-            <input id="filtertext" type="search" placeholder="Search" [(ngModel)]="filterText" (input)="filterData()" />
-        </div>
-        <div class="o-filter-stats">
-            <small>{{ items.length }} Albums</small>
-        </div>
-    </div>
+<ng-container *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</ng-container>
 
-    <div class="o-card-container">
-        <div *ngFor="let item of items; let i = index" class="o-list">
-            <a [href]="item.productUrl" target="_blank">
-                <div class="o-cover" [style.backgroundImage]="'url(' +  item.coverPhotoBaseUrl + ')'">
-                    <div class="o-title">
-                        {{item.title}}
+<ng-container *ngIf="!isLoading">
+    <div class="o-albums-container">
+        <div class="o-filter-container">
+            <div class="o-filter-div">
+                <input id="filtertext" type="search" placeholder="Search" [(ngModel)]="filterText"
+                    (input)="filterData()" />
+            </div>
+            <div class="o-filter-stats">
+                <small>{{ items.length }} Albums</small>
+            </div>
+        </div>
+
+        <div class="o-card-container">
+            <div *ngFor="let item of items; let i = index" class="o-list">
+                <a [href]="item.productUrl" target="_blank">
+                    <div class="o-cover" [style.backgroundImage]="'url(' +  item.coverPhotoBaseUrl + ')'">
+                        <div class="o-title">
+                            {{item.title}}
+                        </div>
+                        <small class="o-counter">{{item.mediaItemsCount}} photos</small>
                     </div>
-                    <small class="o-counter">{{item.mediaItemsCount}} photos</small>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
     </div>
-</div>
+</ng-container>

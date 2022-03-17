@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CookieService } from 'ngx-cookie-service';
 import { PhotoComponent } from './photo/photo.component';
 import { PhotosComponent } from './photos/photos.component';
@@ -18,6 +19,7 @@ import { AlbumsComponent } from './albums/albums.component';
 import { AlbumComponent } from './album/album.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     AlbumsComponent,
     AlbumComponent,
     HomeComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -41,6 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatProgressSpinnerModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
