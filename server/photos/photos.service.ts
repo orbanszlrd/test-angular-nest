@@ -1,15 +1,29 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
 import { catchError, lastValueFrom } from 'rxjs';
+import { AuthService } from 'server/auth/auth.service';
 
 @Injectable()
 export class PhotosService {
   baseUrl = 'https://photoslibrary.googleapis.com/v1';
   pageSize = 50;
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly authService: AuthService
+  ) {}
 
-  async listMediaItems(bearerToken: string) {
+  private async getBearerToken() {
+    const data = await this.authService.getToken();
+
+    if (data && data.access_token) {
+      return `Bearer ${data.access_token}`;
+    }
+
+    return '';
+  }
+
+  async listMediaItems() {
     const result = await lastValueFrom(
       this.httpService
         .get(`${this.baseUrl}/mediaItems`, {
@@ -17,7 +31,7 @@ export class PhotosService {
             pageSize: this.pageSize,
           },
           headers: {
-            Authorization: bearerToken || '',
+            Authorization: await this.getBearerToken(),
           },
         })
         .pipe(
@@ -30,7 +44,7 @@ export class PhotosService {
     return result.data;
   }
 
-  async searchMediaItems(bearerToken: string) {
+  async searchMediaItems() {
     const result = await lastValueFrom(
       this.httpService
         .post(
@@ -45,7 +59,7 @@ export class PhotosService {
           },
           {
             headers: {
-              Authorization: bearerToken || '',
+              Authorization: await this.getBearerToken(),
             },
           }
         )
@@ -59,12 +73,12 @@ export class PhotosService {
     return result.data;
   }
 
-  async getMediaItem(bearerToken: string, mediaItemId: string) {
+  async getMediaItem(mediaItemId: string) {
     const result = await lastValueFrom(
       this.httpService
         .get(`${this.baseUrl}/mediaItems/${mediaItemId}`, {
           headers: {
-            Authorization: bearerToken || '',
+            Authorization: await this.getBearerToken(),
           },
         })
         .pipe(
@@ -77,7 +91,7 @@ export class PhotosService {
     return result.data;
   }
 
-  async listAlbums(bearerToken: string) {
+  async listAlbums() {
     const result = await lastValueFrom(
       this.httpService
         .get(`${this.baseUrl}/albums`, {
@@ -85,7 +99,7 @@ export class PhotosService {
             pageSize: this.pageSize,
           },
           headers: {
-            Authorization: bearerToken || '',
+            Authorization: await this.getBearerToken(),
           },
         })
         .pipe(
@@ -98,12 +112,12 @@ export class PhotosService {
     return result.data;
   }
 
-  async getAlbum(bearerToken: string, albumId: string) {
+  async getAlbum(albumId: string) {
     const result = await lastValueFrom(
       this.httpService
         .get(`${this.baseUrl}/albums/${albumId}`, {
           headers: {
-            Authorization: bearerToken,
+            Authorization: await this.getBearerToken(),
           },
         })
         .pipe(

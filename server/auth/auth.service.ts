@@ -4,7 +4,7 @@ import { catchError, lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  url = 'https://www.googleapis.com/oauth2/v4/token';
+  private readonly url = 'https://www.googleapis.com/oauth2/v4/token';
 
   constructor(private httpService: HttpService) {}
 
