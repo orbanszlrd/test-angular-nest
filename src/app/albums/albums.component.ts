@@ -9,10 +9,10 @@ import { GooglePhotosService } from '../google-photos.service';
 })
 export class AlbumsComponent implements OnInit {
   constructor(private readonly photoService: GooglePhotosService) {}
-  isLoading = true;
 
-  albums: GooglePhotoAlbums | any = [];
-  items: GooglePhotoAlbums | any = [];
+  isLoading = true;
+  albums: Album[] = [];
+  items: Album[] = [];
 
   filterText: string = '';
 

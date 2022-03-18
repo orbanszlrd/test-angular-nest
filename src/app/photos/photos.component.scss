@@ -1,0 +1,60 @@
+.o-filter-container {
+  margin: 1rem;
+}
+
+.o-justify-container {
+  position: relative;
+}
+
+.o-justify-box {
+  position: absolute;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.o-justify-box a img {
+  width: 100%;
+  border: 0;
+  transition: all 0.4s linear;
+}
+
+.o-justify-box a:hover img {
+  transform: scale(1.04);
+}
+
+.o-justify-box a .o-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  background-image: linear-gradient(to bottom, transparent, black);
+  color: white;
+  text-align: center;
+  font-weight: normal;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  opacity: 0.8;
+}
+
+.o-justify-box a .o-date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom-left-radius: 0.2rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  transition: all 0.2s linear;
+}
+
+@media only screen and (max-width: 768px) {
+  .o-justify-box a .o-title {
+    opacity: 1;
+  }
+}

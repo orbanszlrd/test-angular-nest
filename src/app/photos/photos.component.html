@@ -1,11 +1,35 @@
-<h1>Photos</h1>
+<div class="o-container">
+    <ng-container *ngIf="isLoading">
+        <app-spinner></app-spinner>
+    </ng-container>
 
-<label for="nameFilter">Search by name:</label>
-<input id="nameFilter" type="search" [(ngModel)]="nameFilter">
-<button (click)="filter()">Search</button>
-
-<div *ngFor="let item of mediaItems">
-    <a [href]="item.productUrl" target="_blank">
-        <img [src]="item.baseUrl" [alt]="item.filename">
-    </a>
+    <ng-container *ngIf="!isLoading">
+        <div class="o-photos-container">
+            <div class="o-filter-container">
+                <div class="o-filter-div">
+                    <input id="filtertext" type="search" placeholder="Search" [(ngModel)]="filterText"
+                        (input)="filterData()" />
+                </div>
+                <div class="o-filter-stats">
+                    <small>{{ items.length }} Photos</small>
+                </div>
+            </div>
+            <div class="o-justify-container" [style]="getContainerStyle()">
+                <div *ngFor="let item of items; let i = index" class="o-justify-box" [style]="getBoxStyle(i)">
+                    <a [href]="item.productUrl" target="_blank">
+                        <picture>
+                            <source media="(max-width: 1024px)" [srcset]="item.baseUrl">
+                            <source media="(min-width: 1024px)" [srcset]="item.baseUrl">
+                            <img [src]="item.baseUrl" [alt]="item.filename">
+                        </picture>
+                        <div class="o-title">
+                            {{ item.filename }}
+                        </div>
+                        <div class="o-date">{{item.mediaMetadata.creationTime | date:'Y-MM-dd HH:mm:ss'}}</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{resizeBoxes()}}
+    </ng-container>
 </div>
