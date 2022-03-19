@@ -7,8 +7,6 @@ import { MediaItem } from './google-media-items';
   providedIn: 'root',
 })
 export class JustifiedLayoutService {
-  constructor() {}
-
   getBoxSizes(data: MediaItem[]) {
     const photoAspectRatio: number[] = [];
 

@@ -20,6 +20,10 @@ import { AlbumComponent } from './album/album.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -34,17 +38,23 @@ import { SpinnerComponent } from './spinner/spinner.component';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    HttpClientModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    LayoutModule,
+    AppRoutingModule,
+    HttpClientModule,
     FormsModule,
+    LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
     MatProgressSpinnerModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
