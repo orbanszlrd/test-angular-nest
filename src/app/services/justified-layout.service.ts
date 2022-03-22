@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import justifyLayout from 'justified-layout';
-import { MediaItem } from './google-media-items';
+import { MediaItem } from '../models/google-media-items';
 
 @Injectable({
   providedIn: 'root',

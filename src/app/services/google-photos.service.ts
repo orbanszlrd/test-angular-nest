@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { GoogleMediaItems } from './google-media-items';
-import { GooglePhotoAlbums } from './google-photo-albums';
+import { GoogleMediaItems } from '../models/google-media-items';
+import { GooglePhotoAlbums } from '../models/google-photo-albums';
 
 @Injectable({
   providedIn: 'root',

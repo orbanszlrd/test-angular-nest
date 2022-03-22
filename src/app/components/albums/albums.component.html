@@ -1,8 +1,8 @@
-<ng-container *ngIf="isLoading">
+<ng-container *ngIf="(isLoading$ | async) === true">
     <app-spinner></app-spinner>
 </ng-container>
 
-<ng-container *ngIf="!isLoading">
+<ng-container *ngIf="(isLoading$ | async) === false">
     <div class="o-albums-container">
         <div class="o-filter-container">
             <div class="o-filter-div">

@@ -1,9 +1,9 @@
 <div class="o-container">
-    <ng-container *ngIf="isLoading">
+    <ng-container *ngIf="(isLoading$ | async) === true">
         <app-spinner></app-spinner>
     </ng-container>
 
-    <ng-container *ngIf="!isLoading">
+    <ng-container *ngIf="(isLoading$ | async) === false">
         <div class="o-photos-container">
             <div class="o-filter-container">
                 <div class="o-filter-div">
@@ -30,6 +30,5 @@
                 </div>
             </div>
         </div>
-        {{resizeBoxes()}}
     </ng-container>
 </div>

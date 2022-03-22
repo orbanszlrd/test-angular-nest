@@ -1,15 +1,21 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { MediaItem } from '../google-media-items';
-import { GooglePhotosService } from '../google-photos.service';
-import { JustifiedLayoutService } from '../justified-layout.service';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { MediaItem } from '../../models/google-media-items';
+import { JustifiedLayoutService } from '../../services/justified-layout.service';
+import { AppState } from '../../store/app.state';
+import { loadPhotos } from '../../store/actions/photo.actions';
+import {
+  selectIsLoading,
+  selectMediaItems,
+} from '../../store/selectors/photo.selectors';
 
 @Component({
   selector: 'app-photos',
   templateUrl: './photos.component.html',
   styleUrls: ['./photos.component.scss'],
 })
-export class PhotosComponent implements OnInit {
-  isLoading = true;
+export class PhotosComponent implements OnInit, OnDestroy {
   mediaItems: MediaItem[] = [];
   items: MediaItem[] = [];
   filterText: string = '';
@@ -22,8 +28,12 @@ export class PhotosComponent implements OnInit {
     boxes: [],
   };
 
+  isLoading$ = this.store.select(selectIsLoading);
+
+  private subscriptions: Subscription[] = [];
+
   constructor(
-    private readonly photoService: GooglePhotosService,
+    private readonly store: Store<AppState>,
     private readonly justifiedLayoutService: JustifiedLayoutService
   ) {}
 
@@ -72,11 +82,20 @@ export class PhotosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.photoService.listMediaItems().subscribe((data) => {
-      this.mediaItems = data.mediaItems;
-      this.items = data.mediaItems;
-      this.photoBoxes = this.justifiedLayoutService.getBoxSizes(this.items);
-      this.isLoading = false;
-    });
+    this.subscriptions.push(
+      this.store.select(selectMediaItems).subscribe((mediaItems) => {
+        if (mediaItems) {
+          this.mediaItems = mediaItems;
+          this.items = mediaItems;
+          this.photoBoxes = this.justifiedLayoutService.getBoxSizes(this.items);
+        } else {
+          this.store.dispatch(loadPhotos());
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

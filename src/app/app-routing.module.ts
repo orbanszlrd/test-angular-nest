@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AlbumComponent } from './album/album.component';
-import { AlbumsComponent } from './albums/albums.component';
-import { HomeComponent } from './home/home.component';
-import { PhotoComponent } from './photo/photo.component';
-import { PhotosComponent } from './photos/photos.component';
+import { AlbumComponent } from './components/album/album.component';
+import { AlbumsComponent } from './components/albums/albums.component';
+import { HomeComponent } from './components/home/home.component';
+import { PhotoComponent } from './components/photo/photo.component';
+import { PhotosComponent } from './components/photos/photos.component';
 
 const routes: Routes = [
   {
