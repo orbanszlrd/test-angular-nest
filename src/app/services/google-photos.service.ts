@@ -43,4 +43,8 @@ export class GooglePhotosService {
   getAlbum(albumId: string) {
     return this.http.get(`/api/albums/${albumId}`, this.options);
   }
+
+  getAlbumPhotos(albumId: string): Observable<GoogleMediaItems | any> {
+    return this.http.get(`/api/albums/${albumId}/photos`, this.options);
+  }
 }

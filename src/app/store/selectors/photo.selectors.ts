@@ -14,6 +14,12 @@ export const selectPhotoAlbums = createSelector(
   (state: GooglePhotoState) => state.albums?.albums
 );
 
+export const selectAlbumPhotos = createSelector(
+  selectGooglePhotos,
+  (state: GooglePhotoState) =>
+    state.albumPhotos.find((item) => item.albumId === state.currentAlbumId)
+);
+
 export const selectIsLoading = createSelector(
   selectGooglePhotos,
   (state: GooglePhotoState) => state.isLoading

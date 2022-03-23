@@ -16,12 +16,14 @@
 
         <div class="o-card-container">
             <div *ngFor="let item of items; let i = index" class="o-list">
-                <a [href]="item.productUrl" target="_blank">
+                <a [routerLink]="'/album/' +  item.id +  '/photos'">
                     <div class="o-cover" [style.backgroundImage]="'url(' +  item.coverPhotoBaseUrl + ')'">
                         <div class="o-title">
                             {{item.title}}
                         </div>
-                        <small class="o-counter">{{item.mediaItemsCount}} photos</small>
+                        <a [href]="item.productUrl" target="_blank">
+                            <small class="o-counter">{{item.mediaItemsCount}} photos</small>
+                        </a>
                     </div>
                 </a>
             </div>

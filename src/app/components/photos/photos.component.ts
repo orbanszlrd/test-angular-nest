@@ -4,11 +4,17 @@ import { Subscription } from 'rxjs';
 import { MediaItem } from '../../models/google-media-items';
 import { JustifiedLayoutService } from '../../services/justified-layout.service';
 import { AppState } from '../../store/app.state';
-import { loadPhotos } from '../../store/actions/photo.actions';
 import {
+  loadAlbumPhotos,
+  loadPhotos,
+  setAlbumId,
+} from '../../store/actions/photo.actions';
+import {
+  selectAlbumPhotos,
   selectIsLoading,
   selectMediaItems,
 } from '../../store/selectors/photo.selectors';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-photos',
@@ -33,6 +39,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
+    private route: ActivatedRoute,
     private readonly store: Store<AppState>,
     private readonly justifiedLayoutService: JustifiedLayoutService
   ) {}
@@ -82,17 +89,40 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(
-      this.store.select(selectMediaItems).subscribe((mediaItems) => {
-        if (mediaItems) {
-          this.mediaItems = mediaItems;
-          this.items = mediaItems;
-          this.photoBoxes = this.justifiedLayoutService.getBoxSizes(this.items);
-        } else {
-          this.store.dispatch(loadPhotos());
-        }
-      })
-    );
+    const routeParams = this.route.snapshot.paramMap;
+    const albumId = routeParams.get('albumId');
+
+    if (albumId) {
+      this.store.dispatch(setAlbumId({ albumId }));
+
+      this.subscriptions.push(
+        this.store.select(selectAlbumPhotos).subscribe((albumPhotos) => {
+          if (albumPhotos) {
+            this.mediaItems = albumPhotos.mediaItems;
+            this.items = albumPhotos.mediaItems;
+            this.photoBoxes = this.justifiedLayoutService.getBoxSizes(
+              this.items
+            );
+          } else {
+            this.store.dispatch(loadAlbumPhotos({ albumId }));
+          }
+        })
+      );
+    } else {
+      this.subscriptions.push(
+        this.store.select(selectMediaItems).subscribe((mediaItems) => {
+          if (mediaItems) {
+            this.mediaItems = mediaItems;
+            this.items = mediaItems;
+            this.photoBoxes = this.justifiedLayoutService.getBoxSizes(
+              this.items
+            );
+          } else {
+            this.store.dispatch(loadPhotos());
+          }
+        })
+      );
+    }
   }
 
   ngOnDestroy(): void {

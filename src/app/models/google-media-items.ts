@@ -25,5 +25,5 @@ export interface MediaItem {
 
 export interface GoogleMediaItems {
   mediaItems: MediaItem[];
-  nextPageToken: string;
+  nextPageToken?: string;
 }
