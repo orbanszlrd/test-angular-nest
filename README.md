@@ -30,5 +30,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 [Angular](https://angular.io/docs)  
 [NestJS](https://docs.nestjs.com/)  
+[RxJs](https://rxjs.dev/guide/overview)  
+[NgRx](https://ngrx.io/docs)  
 [Google APIs Node.js Client](https://github.com/googleapis/google-api-nodejs-client)  
 [Google Photos Library API](https://developers.google.com/photos/library/reference/rest)  

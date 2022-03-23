@@ -6,7 +6,6 @@ import { AuthService } from 'server/auth/auth.service';
 @Injectable()
 export class PhotosService {
   baseUrl = 'https://photoslibrary.googleapis.com/v1';
-  pageSize = 50;
 
   constructor(
     private readonly httpService: HttpService,
@@ -28,7 +27,7 @@ export class PhotosService {
       this.httpService
         .get(`${this.baseUrl}/mediaItems`, {
           params: {
-            pageSize: this.pageSize,
+            pageSize: 100,
           },
           headers: {
             Authorization: await this.getBearerToken(),
@@ -55,7 +54,7 @@ export class PhotosService {
                 mediaTypes: ['PHOTO'],
               },
             },
-            pageSize: this.pageSize,
+            pageSize: 100,
           },
           {
             headers: {
@@ -96,7 +95,7 @@ export class PhotosService {
       this.httpService
         .get(`${this.baseUrl}/albums`, {
           params: {
-            pageSize: this.pageSize,
+            pageSize: 50,
           },
           headers: {
             Authorization: await this.getBearerToken(),
@@ -120,6 +119,31 @@ export class PhotosService {
             Authorization: await this.getBearerToken(),
           },
         })
+        .pipe(
+          catchError((e) => {
+            throw new HttpException(e.response.data, e.response.status);
+          })
+        )
+    );
+
+    return result.data;
+  }
+
+  async getAlbumPhotos(albumId: string) {
+    const result = await lastValueFrom(
+      this.httpService
+        .post(
+          `${this.baseUrl}/mediaItems:search`,
+          {
+            albumId: albumId,
+            pageSize: 100,
+          },
+          {
+            headers: {
+              Authorization: await this.getBearerToken(),
+            },
+          }
+        )
         .pipe(
           catchError((e) => {
             throw new HttpException(e.response.data, e.response.status);

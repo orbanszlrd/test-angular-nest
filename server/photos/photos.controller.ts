@@ -29,4 +29,9 @@ export class PhotosController {
   getAlbum(@Param('albumId') albumId: string) {
     return this.photosService.getAlbum(albumId);
   }
+
+  @Get('albums/:albumId/photos')
+  getAlbumPhotos(@Param('albumId') albumId: string) {
+    return this.photosService.getAlbumPhotos(albumId);
+  }
 }
